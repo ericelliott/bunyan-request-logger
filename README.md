@@ -8,9 +8,6 @@ Example usage:
 
 ```
 $ npm install --save bunyan-request-logger
-
-# Don't let your log calls get cached:
-$ npm install --save noCache
 ```
 
 ```js
