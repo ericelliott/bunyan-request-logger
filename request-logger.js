@@ -155,12 +155,23 @@ var
         // error back to the originating request.
         err.requestId = req.requestId;
 
+        // Omit stack from the 4xx range
+        if (err.status >= 400 &&
+            err.status <=499 ) {
+          delete err.stack;
+        }
+
         log.error({err: err});
         next(err);
       };
     };
 
     // Tracking pixel / web bug
+    // 
+    // Using a 1x1 transparent gif allows you to
+    // use the logger in emails or embed the 
+    // tracking pixel on third party sites without
+    // requiring to JavaScript.
     log.route = function route() {
       return function pixel(req, res) {
         var data;
@@ -174,6 +185,9 @@ var
 
         res.header('content-type', 'image/gif');
 
+        // GIF images can be so small, it's
+        // easy to just inline it instead of
+        // loading from a file:
         res.send(
           'GIF89a\u0001\u0000\u0001\u0000' +
           '\u00A1\u0001\u0000\u0000\u0000\u0000' +

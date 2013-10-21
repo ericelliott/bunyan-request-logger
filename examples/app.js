@@ -19,11 +19,6 @@ app.use( log.requestLogger() );
 // middleware so that the browser always logs
 // to the server instead of fetching a useless
 // OK message from its cache.
-// 
-// Using a 1x1 transparent gif allows you to
-// use the logger in emails or embed the tracking
-// pixel on third party sites without resorting
-// to JavaScript.
 app.get( '/log.gif', noCache, log.route() );
 
 // Route that triggers a sample error:
@@ -33,6 +28,8 @@ app.get('/error', function createError(req,
   err.status = 500;
   next(err);
 });
+
+app.use( errorHandler.httpError(404) );
 
 // Log request errors:
 app.use( log.errorLogger() );
