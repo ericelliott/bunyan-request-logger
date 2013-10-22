@@ -150,14 +150,15 @@ var
 
       return function errorLogger(err, req, res,
           next) {
+        status = err.status || res && res.status;
 
         // Add the requestId so we can link the
         // error back to the originating request.
-        err.requestId = req.requestId;
+        err.requestId = req && req.requestId;
 
         // Omit stack from the 4xx range
-        if (err.status >= 400 &&
-            err.status <=499 ) {
+        if (status >= 400 &&
+            status <=499) {
           delete err.stack;
         }
 
