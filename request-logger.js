@@ -150,7 +150,7 @@ var
 
       return function errorLogger(err, req, res,
           next) {
-        status = err.status || res && res.status;
+        var status = err.status || res && res.status;
 
         // Add the requestId so we can link the
         // error back to the originating request.
