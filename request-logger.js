@@ -116,7 +116,7 @@ var
 
         // Add a unique identifier to the request.
         req.requestId = cuid();
-
+        req.host = req.hostname;
         // Log the request
         log.info({req: req});
 
