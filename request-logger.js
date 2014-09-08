@@ -19,7 +19,7 @@ var
     var ret = err.stack || err.toString(),
       cause;
 
-    if (err.cause && typeof (err.cause) === 
+    if (err.cause && typeof (err.cause) ===
         'function') {
       cause = err.cause();
       if (cause) {
@@ -33,10 +33,10 @@ var
   // To create a custom Bunyan serializer,
   // just return the desired object
   // serialization.
-  // 
+  //
   // Regardless of your serialization settings,
   // all bunyan messages automatically include:
-  // 
+  //
   // * App name
   // * hostname
   // * pid (Process ID)
@@ -46,22 +46,8 @@ var
   // * Timestamp
   // * Log format version number
   serializers = {
-    req: function reqSerializer(req) {
-      if (!req || !req.connection) {
-        return req;
-      }
-
-      return {
-        url: req.url,
-        method: req.method,
-        protocol: req.protocol,
-        requestId: req.requestId,
-
-        // In case there's a proxy server:
-        ip: req.headers['x-forwarded-for'] ||
-          req.connection.remoteAddress,
-        headers: req.headers
-      };
+    req: function () {
+      return {};
     },
     res: function resSerializer(res) {
       if (!res) {
@@ -77,7 +63,7 @@ var
     },
     err: function errSerializer(err) {
       if (!err || !err.stack) {
-        return err;      
+        return err;
       }
 
       return {
@@ -87,13 +73,13 @@ var
           code: err.code,
           signal: err.signal,
           requestId: err.requestId
-      };    
+      };
     }
   },
 
   // Bunyan offers lots of other options,
   // including extensible output stream types.
-  // 
+  //
   // You might be interested in
   // node-bunyan-syslog, in particular.
   defaults = {
@@ -106,7 +92,7 @@ var
    * Take bunyan options, monkey patch request
    * and response objects for better logging,
    * and return a logger instance.
-   * 
+   *
    * @param  {object}  options See bunyan docs
    * @param  {boolean} options.logParams
    *         Pass true to log request parameters
@@ -130,7 +116,7 @@ var
 
         // Add a unique identifier to the request.
         req.requestId = cuid();
-
+        req.host = req.hostname;
         // Log the request
         log.info({req: req});
 
@@ -168,9 +154,9 @@ var
     };
 
     // Tracking pixel / web bug
-    // 
+    //
     // Using a 1x1 transparent gif allows you to
-    // use the logger in emails or embed the 
+    // use the logger in emails or embed the
     // tracking pixel on third party sites without
     // requiring to JavaScript.
     log.route = function route() {
