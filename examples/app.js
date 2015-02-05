@@ -7,7 +7,7 @@ var express = require('express'),
   log = logger(),
   app = express(),
   env = process.env,
-  port = env.myapp_port || 3000,
+  port = env.myapp_port || 5050,
   http = require('http'),
   server;
 
