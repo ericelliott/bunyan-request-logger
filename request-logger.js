@@ -8,7 +8,7 @@ var
   cuid = require('cuid'),
 
   // For object property overrides:
-  mixIn = require('mout/object/mixIn'),
+  assign = require('lodash/object/assign'),
 
   /**
    * Get long stack traces for the error logger.
@@ -98,7 +98,7 @@ var
   // node-bunyan-syslog, in particular.
   defaults = {
     name: 'unnamed app',
-    serializers: mixIn({}, bunyan.stdSerializers,
+    serializers: assign({}, bunyan.stdSerializers,
       serializers)
   },
 
@@ -116,7 +116,7 @@ var
    *                    (See below)
    */
   createLogger = function (options) {
-    var settings = mixIn({}, defaults, options),
+    var settings = assign({}, defaults, options),
       log = bunyan.createLogger(settings);
 
     log.requestLogger = function
@@ -178,7 +178,7 @@ var
         var data;
 
         if (settings.logParams && req.params) {
-          data = mixIn({}, req.params, {
+          data = assign({}, req.params, {
             requestId: req.requestId
           });
           log.info(req.params);
