@@ -9,7 +9,7 @@
   "dependencies": {
     "bunyan": "~0.21.4",
     "cuid": "~1.2.1",
-    "mout": "^0.11.0"
+    "lodash": "^3.0.0"
   },
   "devDependencies": {
     "connect-cache-control": "~0.1.0",
