@@ -1,6 +1,6 @@
 {
   "name": "bunyan-request-logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Automated request logging connect middleware for Express. Powered by Bunyan.",
   "main": "request-logger.js",
   "directories": {
