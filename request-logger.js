@@ -181,7 +181,7 @@ var
           data = assign({}, req.params, {
             requestId: req.requestId
           });
-          log.info(req.params);
+          log.info(data);
         }
 
         res.header('content-type', 'image/gif');
