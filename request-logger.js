@@ -135,7 +135,7 @@ var
         log.info({req: req});
 
         // Make sure responses get logged, too:
-        req.on('end', function () {
+        res.on('finish', function () {
           res.responseTime = new Date() - startTime;
           res.requestId = req.requestId;
           log.info({res: res});

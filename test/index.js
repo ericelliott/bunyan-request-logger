@@ -25,6 +25,12 @@ function createDefaultApp(loggerOptions) {
     res.send('Hello World!')
   });
 
+  app.get('/slow-response', function slowResponse(req, res) {
+    setTimeout(function() {
+      res.send('Hello response timer');
+    }, 100);
+  });
+
   // Route that triggers a sample error:
   app.get('/error', function createError() {
     throw new Error('Sample error');
@@ -111,13 +117,13 @@ describe('bunyan-request-logger', function () {
 
     it('should log the response time at the info level', function (done) {
       request(app)
-        .get('/something')
+        .get('/slow-response')
         .end(function (err) {
           should.not.exist(err);
 
           var logInfoMetadata = infoSpy.secondCall.args[0];
           logInfoMetadata.res.responseTime.should.be.a.Number;
-          (logInfoMetadata.res.responseTime >= 0).should.be.true;
+          logInfoMetadata.res.responseTime.should.be.aboveOrEqual(100);
           done();
         })
     });
