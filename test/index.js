@@ -1,10 +1,12 @@
-var sinon = require('sinon');
-var bunyan = require('bunyan');
-var logger = require('../request-logger.js');
-var express = require('express');
-var request = require('supertest');
-var should = require('should');
+/* globals describe, before, beforeEach, after, it*/
+var sinon        = require('sinon');
+var bunyan       = require('bunyan');
+var logger       = require('../request-logger.js');
+var express      = require('express');
+var request      = require('supertest');
+var should       = require('should');
 var errorHandler = require('express-error-handler');
+var noCache      = require('connect-cache-control');
 
 
 /**
@@ -22,7 +24,7 @@ function createDefaultApp(loggerOptions) {
 
 
   app.get('/something', function returnSomething(req, res) {
-    res.send('Hello World!')
+    res.send('Hello World!');
   });
 
   app.get('/slow-response', function slowResponse(req, res) {
@@ -35,6 +37,11 @@ function createDefaultApp(loggerOptions) {
   app.get('/error', function createError() {
     throw new Error('Sample error');
   });
+
+  app.get( '/log.gif', noCache, log.route() );
+
+  app.get( '/log.gif/:msg', noCache, log.route() );
+
 
   app.use(errorHandler.httpError(404));
 
@@ -77,7 +84,7 @@ describe('bunyan-request-logger', function () {
 
           infoSpy.calledTwice.should.be.true;
           done();
-        })
+        });
     });
 
     it('should call info twice per request that returns HTTP 500 error', function (done) {
@@ -88,7 +95,7 @@ describe('bunyan-request-logger', function () {
 
           infoSpy.calledTwice.should.be.true;
           done();
-        })
+        });
     });
 
     it('should call info twice per request that returns a HTTP 404 not found', function (done) {
@@ -99,7 +106,7 @@ describe('bunyan-request-logger', function () {
 
           infoSpy.calledTwice.should.be.true;
           done();
-        })
+        });
     });
 
 
@@ -112,7 +119,7 @@ describe('bunyan-request-logger', function () {
           var logInfoMetadata = infoSpy.secondCall.args[0];
           logInfoMetadata.should.have.properties('res');
           done();
-        })
+        });
     });
 
     it('should log the response time at the info level', function (done) {
@@ -125,7 +132,7 @@ describe('bunyan-request-logger', function () {
           logInfoMetadata.res.responseTime.should.be.a.Number;
           logInfoMetadata.res.responseTime.should.be.aboveOrEqual(100);
           done();
-        })
+        });
     });
 
     it('should log the request id in the response at the info level', function (done) {
@@ -138,7 +145,7 @@ describe('bunyan-request-logger', function () {
           logInfoMetadata.res.requestId.should.be.a.String;
           logInfoMetadata.res.requestId.should.not.be.empty;
           done();
-        })
+        });
     });
 
     it('should log the request at the info level', function (done) {
@@ -150,7 +157,7 @@ describe('bunyan-request-logger', function () {
           var logInfoMetadata = infoSpy.firstCall.args[0];
           logInfoMetadata.should.have.keys('req');
           done();
-        })
+        });
     });
 
     it('should log the request id at the info level', function (done) {
@@ -164,7 +171,7 @@ describe('bunyan-request-logger', function () {
           logInfoMetadata.req.requestId.should.not.be.empty;
 
           done();
-        })
+        });
     });
 
     it('should log the same request id for the request and response', function (done) {
@@ -178,7 +185,7 @@ describe('bunyan-request-logger', function () {
           reqMetadata.req.requestId.should.equal(resMetadata.res.requestId);
 
           done();
-        })
+        });
     });
   });
 
@@ -192,7 +199,7 @@ describe('bunyan-request-logger', function () {
 
           errorSpy.called.should.be.false;
           done();
-        })
+        });
     });
 
     it('should call error once on a error on an endpoint that returns 500', function (done) {
@@ -203,7 +210,7 @@ describe('bunyan-request-logger', function () {
 
           errorSpy.calledOnce.should.be.true;
           done();
-        })
+        });
     });
 
     it('should call error once on a error on a 404 when using error handler', function (done) {
@@ -214,7 +221,7 @@ describe('bunyan-request-logger', function () {
 
           errorSpy.calledOnce.should.be.true;
           done();
-        })
+        });
     });
   });
 
