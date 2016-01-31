@@ -6,7 +6,7 @@ var should = require('should');
 var createDefaultApp = require('./').createDefaultApp;
 
 
-describe('bunyan-request-logger log.route', function () {
+describe('bunyan-request-logger log.gif', function () {
   var infoSpy;
   var app = createDefaultApp({level: bunyan.FATAL});
 
@@ -26,7 +26,7 @@ describe('bunyan-request-logger log.route', function () {
 
     it('should log the request id in the response at the info level', function (done) {
       request(app)
-        .get('/log.route')
+        .get('/log.gif')
         .end(function (err) {
           should.not.exist(err);
 
@@ -39,7 +39,7 @@ describe('bunyan-request-logger log.route', function () {
 
     it('should log the request at the info level', function (done) {
       request(app)
-        .get('/log.route')
+        .get('/log.gif')
         .end(function (err) {
           should.not.exist(err);
 
@@ -51,7 +51,7 @@ describe('bunyan-request-logger log.route', function () {
 
     it('should log the request id at the info level', function (done) {
       request(app)
-        .get('/log.route')
+        .get('/log.gif')
         .end(function (err) {
           should.not.exist(err);
 
@@ -65,7 +65,7 @@ describe('bunyan-request-logger log.route', function () {
 
     it('should log the request params', function (done) {
       request(app)
-        .get('/log.route/my message')
+        .get('/log.gif/my message')
         .end(function (err) {
           should.not.exist(err);
 
@@ -80,7 +80,7 @@ describe('bunyan-request-logger log.route', function () {
   describe('response', function () {
     it('should not be cached', function (done) {
       request(app)
-        .get('/log.route')
+        .get('/log.gif')
         .end(function (err, res) {
           should.not.exist(err);
           res.headers['cache-control'].should.be.equal('no-store, no-cache, must-revalidate, max-age=0');
@@ -91,7 +91,7 @@ describe('bunyan-request-logger log.route', function () {
 
     it('should be a gif image', function (done) {
       request(app)
-        .get('/log.route')
+        .get('/log.gif')
         .end(function (err, res) {
           should.not.exist(err);
           res.headers['content-type'].should.be.equal('image/gif');
