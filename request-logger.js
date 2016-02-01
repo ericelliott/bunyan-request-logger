@@ -19,7 +19,7 @@ var
     var ret = err.stack || err.toString(),
       cause;
 
-    if (err.cause && typeof (err.cause) === 
+    if (err.cause && typeof (err.cause) ===
         'function') {
       cause = err.cause();
       if (cause) {
@@ -33,10 +33,10 @@ var
   // To create a custom Bunyan serializer,
   // just return the desired object
   // serialization.
-  // 
+  //
   // Regardless of your serialization settings,
   // all bunyan messages automatically include:
-  // 
+  //
   // * App name
   // * hostname
   // * pid (Process ID)
@@ -77,7 +77,7 @@ var
     },
     err: function errSerializer(err) {
       if (!err || !err.stack) {
-        return err;      
+        return err;
       }
 
       return {
@@ -87,13 +87,13 @@ var
           code: err.code,
           signal: err.signal,
           requestId: err.requestId
-      };    
+      };
     }
   },
 
   // Bunyan offers lots of other options,
   // including extensible output stream types.
-  // 
+  //
   // You might be interested in
   // node-bunyan-syslog, in particular.
   defaults = {
@@ -106,7 +106,7 @@ var
    * Take bunyan options, monkey patch request
    * and response objects for better logging,
    * and return a logger instance.
-   * 
+   *
    * @param  {object}  options See bunyan docs
    * @param  {boolean} options.logParams
    *         Pass true to log request parameters
@@ -168,9 +168,9 @@ var
     };
 
     // Tracking pixel / web bug
-    // 
+    //
     // Using a 1x1 transparent gif allows you to
-    // use the logger in emails or embed the 
+    // use the logger in emails or embed the
     // tracking pixel on third party sites without
     // requiring to JavaScript.
     log.route = function route() {
@@ -185,19 +185,12 @@ var
         }
 
         res.header('content-type', 'image/gif');
-
         // GIF images can be so small, it's
         // easy to just inline it instead of
         // loading from a file:
-        res.send(
-          'GIF89a\u0001\u0000\u0001\u0000' +
-          '\u00A1\u0001\u0000\u0000\u0000\u0000' +
-          '\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF' +
-          '\u00FF\u00FF\u00FF\u0021\u00F9\u0004' +
-          '\u0001\u000A\u0000\u0001\u0000\u002C' +
-          '\u0000\u0000\u0000\u0000\u0001\u0000' +
-          '\u0001\u0000\u0000\u0002\u0002\u004C' +
-          '\u0001\u0000;');
+        var buf = new Buffer(35);
+        buf.write("R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=", "base64");
+        res.end(buf, 'binary');
       };
     };
 
