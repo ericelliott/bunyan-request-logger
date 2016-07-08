@@ -8,7 +8,7 @@ var
   cuid = require('cuid'),
 
   // For object property overrides:
-  assign = require('lodash/object/assign'),
+  assign = require('lodash/assign'),
 
   /**
    * Get long stack traces for the error logger.
