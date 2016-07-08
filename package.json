@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:dilvie/bunyan-request-logger.git"
+    "url": "git@github.com:ericelliott/bunyan-request-logger.git"
   },
   "keywords": [
     "logging",
