@@ -9,7 +9,8 @@
   "dependencies": {
     "bunyan": "1.8.12",
     "cuid": "2.1.1",
-    "lodash": "4.17.11"
+    "lodash": "4.17.11",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "connect-cache-control": "^1.0.0",
@@ -25,7 +26,9 @@
   },
   "scripts": {
     "test": "mocha --recursive --reporter spec ./test",
-    "update": "updtr"
+    "update": "updtr",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -46,5 +49,6 @@
     "requests"
   ],
   "author": "Eric Elliott",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
