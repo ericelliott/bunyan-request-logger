@@ -19,8 +19,7 @@ var
     var ret = err.stack || err.toString(),
       cause;
 
-    if (err.cause && typeof (err.cause) ===
-        'function') {
+    if (typeof err.cause === 'function') {
       cause = err.cause();
       if (cause) {
         ret += '\nCaused by: ' +
