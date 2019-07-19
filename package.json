@@ -9,7 +9,7 @@
   "dependencies": {
     "bunyan": "1.8.12",
     "cuid": "2.1.6",
-    "lodash": "4.17.14",
+    "lodash": "4.17.15",
     "snyk": "1.193.2"
   },
   "devDependencies": {
