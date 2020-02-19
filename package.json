@@ -20,7 +20,7 @@
     "grunt-contrib-jshint": "1.1.0",
     "mocha": "5.2.0",
     "should": "13.2.3",
-    "sinon": "1.17.7",
+    "sinon": "8.1.1",
     "supertest": "3.4.2",
     "updtr": "2.0.0"
   },
