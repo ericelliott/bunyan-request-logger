@@ -18,7 +18,7 @@
     "express-error-handler": "1.1.0",
     "grunt": "1.0.4",
     "grunt-contrib-jshint": "1.1.0",
-    "mocha": "5.2.0",
+    "mocha": "6.2.3",
     "should": "13.2.3",
     "sinon": "1.17.7",
     "supertest": "3.4.2",
