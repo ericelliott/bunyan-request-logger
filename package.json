@@ -9,8 +9,8 @@
   "dependencies": {
     "bunyan": "1.8.12",
     "cuid": "2.1.8",
-    "lodash": "4.17.15",
-    "snyk": "1.296.1"
+    "lodash": "4.17.23",
+    "snyk": "1.996.0"
   },
   "devDependencies": {
     "connect-cache-control": "1.0.0",
